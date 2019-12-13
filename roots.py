@@ -6,6 +6,8 @@ class quad:
     def calc(a,b,c,s1,s2,result):#function to calculate the roots, sum of the roots, product of the roots and difference of the roots
         result.delete("all")
         result.create_rectangle(5,5,495,245)
+        b=float(b)
+        c=float(c)
         if s1=='' or s2=='':
             tk.messagebox.showerror("ERROR","Please select an operator")
         elif b=='':
@@ -13,26 +15,29 @@ class quad:
         elif c=='':
             tk.messagebox.showerror("ERROR","Please enter a value for c")
         else:
-            if s1=='-' and float(b)<0:
+            if s1=='-' and b<0:
                 s1='+'
-                b=-b
-            if s2=='-' and float(c)<0:
+                b=abs(b)
+            if s1=='-' and b>0:
+                b=-b                
+            if s2=='-' and c<0:
                 s2='+'
+                c=abs(c)
+            if s2=='-' and c>0:
                 c=-c
-            b=float(s1+b)
-            c=float(s2+c)
-            a=float(a)
+           
             
             if a=='' or a=='0':
                 x=-c/b
                 print(x)
                 if x==-0:
                     x=0
-                result.create_text(20,20,text="Given equation:\t\t{}x {}{}".format(b,s2,abs(c)), anchor="w")
+                result.create_text(20,20,text="Given equation:\t\t{}x {}{} = 0".format(b,s2,abs(c)), anchor="w")
                 result.create_text(20,40,text="Type of equation:\t\tLinear Equation", anchor="w")
                 result.create_text(20,60,text="Root (value of x):\t\t{}".format(x), anchor="w")
             else:
-                result.create_text(20,20,text="Given equation:\t\t{}x\u00b2 {} {}x {} {}".format(a,s1,abs(b),s2,abs(c)), anchor="w")
+                a=float(a)
+                result.create_text(20,20,text="Given equation:\t\t{}x\u00b2 {} {}x {} {} = 0".format(a,s1,abs(b),s2,abs(c)), anchor="w")
                 result.create_text(20,40,text="Type of equation:\t\tQuadratic Equation", anchor="w")
                 d=b**2 - (4*a*c)
                 if d<0:

@@ -13,45 +13,46 @@ class quad:
         elif c=='':
             tk.messagebox.showerror("ERROR","Please enter a value for c")
         else:
-            if s1=='-' and int(b)<0:
+            if s1=='-' and float(b)<0:
                 s1='+'
                 b=-b
-            if s2=='-' and int(c)<0:
+            if s2=='-' and float(c)<0:
                 s2='+'
                 c=-c
-            b=s1+b
-            c=s2+c
+            b=float(s1+b)
+            c=float(s2+c)
+            a=float(a)
+            
             if a=='' or a=='0':
-                x=-int(c)/int(b)
+                x=-c/b
                 print(x)
                 if x==-0:
                     x=0
-                result.create_text(20,20,text="Given equation:\t\t"+b+"x"+c, anchor="w")
+                result.create_text(20,20,text="Given equation:\t\t{}x {}{}".format(b,s2,abs(c)), anchor="w")
                 result.create_text(20,40,text="Type of equation:\t\tLinear Equation", anchor="w")
-                result.create_text(20,60,text="Root (value of x):\t\t"+str(x), anchor="w")
+                result.create_text(20,60,text="Root (value of x):\t\t{}".format(x), anchor="w")
             else:
-                result.create_text(20,20,text="Given equation:\t\t"+a+"x "+b+"x"+c, anchor="w")
-                result.create_text(175,13,text="2", anchor="w",font=("",6))
+                result.create_text(20,20,text="Given equation:\t\t{}x\u00b2 {} {}x {} {}".format(a,s1,abs(b),s2,abs(c)), anchor="w")
                 result.create_text(20,40,text="Type of equation:\t\tQuadratic Equation", anchor="w")
-                d=int(b)**2 - (4*int(a)*int(c))
+                d=b**2 - (4*a*c)
                 if d<0:
-                    r=-int(b)/2*int(a)
-                    i=math.sqrt(abs(d))/(2*int(a))
+                    r=-b/2*a
+                    i=math.sqrt(abs(d))/(2*a)
                     result.create_text(20,60,text="Type of roots:\t\tImaginary", anchor="w")
-                    result.create_text(20,80,text="Root 1 =\t\t\t"+str(r)+" + "+str(i)+" i", anchor="w")
-                    result.create_text(20,100,text="Root 2 =\t\t\t"+str(r)+" - "+str(i)+" i", anchor="w")
-                    result.create_text(20,120,text="Sum of roots =\t\t"+str(-int(b)/int(a)), anchor="w")
-                    result.create_text(20,140,text="Product of roots =\t"+str(int(c)/int(a)), anchor="w")
-                    result.create_text(20,160,text="Difference of roots =\t"+str(math.sqrt(abs(d))/int(a))+" i", anchor="w")
+                    result.create_text(20,80,text="Root 1 =\t\t\t{} + {} i".format(r,i), anchor="w")
+                    result.create_text(20,100,text="Root 2 =\t\t\t{} - {} i".format(r,i), anchor="w")
+                    result.create_text(20,120,text="Sum of roots =\t\t{}".format(-b/a), anchor="w")
+                    result.create_text(20,140,text="Product of roots =\t{}".format(c/a), anchor="w")
+                    result.create_text(20,160,text="Difference of roots =\t{} i".format(math.sqrt(abs(d))/a), anchor="w")
                 else:
-                    r1=(-int(b)+math.sqrt(d))/(2*int(a))
-                    r2=(-int(b)-math.sqrt(d))/(2*int(a))
+                    r1=(-float(b)+math.sqrt(d))/(2*float(a))
+                    r2=(-float(b)-math.sqrt(d))/(2*float(a))
                     result.create_text(20,60,text="Type of roots:\t\tReal", anchor="w")
-                    result.create_text(20,80,text="Root 1 =\t\t\t"+str(r1), anchor="w")
-                    result.create_text(20,100,text="Root 2 =\t\t\t"+str(r2), anchor="w")
-                    result.create_text(20,120,text="Sum of roots =\t\t"+str(-int(b)/int(a)), anchor="w")
-                    result.create_text(20,140,text="Product of roots =\t"+str(int(c)/int(a)), anchor="w")
-                    result.create_text(20,160,text="Difference of roots =\t"+str(math.sqrt(abs(d))/int(a)), anchor="w")
+                    result.create_text(20,80,text="Root 1 =\t\t\t{}".format(r1), anchor="w")
+                    result.create_text(20,100,text="Root 2 =\t\t\t{}".format(r2), anchor="w")
+                    result.create_text(20,120,text="Sum of roots =\t\t{}".format(-b/a), anchor="w")
+                    result.create_text(20,140,text="Product of roots =\t{}".format(c/a), anchor="w")
+                    result.create_text(20,160,text="Difference of roots =\t{}".format(math.sqrt(abs(d))/a), anchor="w")
 
     def __init__(main):
         #Creating a user interface
@@ -81,15 +82,13 @@ class quad:
         sym2.place(x=315, y=150, anchor='center')
         submit.place(x=250, y=200, anchor='center')
         canvas.create_text(250,30,text="QUADRATIC EQUATION SOLVER",font=("Times New Roman",20,'bold'))
-        canvas.create_text(20,80,text='''A quadratic equation is of the form ax  +bx+c=0
+        canvas.create_text(20,80,text='''A quadratic equation is of the form ax\u00b2+bx+c=0
 Enter the values for a,b,c and select the operators:''',anchor="w", font=("Times New Roman",12))
-        canvas.create_text(250,67,text="2", font=("Times New Roman",8))
         canvas.create_text(430,150,text="= 0", font=("Times New Roman",18))
         canvas.create_text(80,125,text="a", font=("Times New Roman",18))
         canvas.create_text(230,125,text="b", font=("Times New Roman",18))
         canvas.create_text(380,125,text="c", font=("Times New Roman",18))
-        canvas.create_text(120,150,text="x", font=("Times New Roman",18))
-        canvas.create_text(130,140,text="2", font=("Times New Roman",10))
+        canvas.create_text(120,150,text="x\u00b2", font=("Times New Roman",18))
         canvas.create_text(275,150,text="x", font=("Times New Roman",18))
         
 quad()
